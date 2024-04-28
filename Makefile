@@ -6,7 +6,7 @@
 #    By: pgonzal2 <pgonzal2@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/26 16:40:41 by pgonzal2          #+#    #+#              #
-#    Updated: 2024/04/26 16:48:59 by pgonzal2         ###   ########.fr        #
+#    Updated: 2024/04/28 20:08:17 by pgonzal2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ RM                = rm -rf
 SRC_DIR           = src/
 OBJ_DIR           = obj/
 
-FILES_SRC         = main.c map.c \
+FILES_SRC         = main.c map.c flood_fill.c \
 
 SRC               = $(addprefix $(SRC_DIR),$(FILES_SRC))
 OBJ_SRC           = $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
