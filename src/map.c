@@ -6,7 +6,7 @@
 /*   By: pgonzal2 <pgonzal2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:38:59 by pgonzal2          #+#    #+#             */
-/*   Updated: 2024/04/28 21:37:25 by pgonzal2         ###   ########.fr       */
+/*   Updated: 2024/04/29 13:25:25 by pgonzal2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_free_map(t_map *map)
 		t++;
 	}
 	free(map->grid);
-	printf("Error\n");
+	printf("Error fre\n");
 }
 
 int	ft_strlen_sl(char *str)
@@ -110,7 +110,8 @@ void	ft_read_map(char *name_map)
 	if (ft_memcmp(&name_map[i], ".ber", 5) != 0)
 		ft_error();
 	ft_measure_map(name_map, &map);
-	map.grid = malloc(sizeof(char *) * (map.h));
+	printf("H: %d, W: %d\n", map.h, map.w);
+	map.grid = ft_calloc(sizeof(char *), (map.h));
 	fd = open(name_map, O_RDONLY);
 	if (fd == -1)
 		ft_error();
@@ -123,6 +124,8 @@ void	ft_read_map(char *name_map)
 		line = get_next_line(fd);
 	}
 	close(fd);
+	printf("CERRADO\n");
 	ft_check_map(&map);
+	printf("CHECKEADO\n");
 	ft_save_player(&map);
 }

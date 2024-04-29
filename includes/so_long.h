@@ -6,7 +6,7 @@
 /*   By: pgonzal2 <pgonzal2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 13:12:12 by pgonzal2          #+#    #+#             */
-/*   Updated: 2024/04/28 21:31:17 by pgonzal2         ###   ########.fr       */
+/*   Updated: 2024/04/29 13:30:23 by pgonzal2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct s_map
 	int		p_x;
 	int		p_y;
 	int		c;
+	int		p;
+	int		e;
 } t_map;
 
 void	ft_read_map(char *name_map);
