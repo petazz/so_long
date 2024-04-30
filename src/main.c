@@ -6,7 +6,7 @@
 /*   By: pgonzal2 <pgonzal2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:46:46 by pgonzal2          #+#    #+#             */
-/*   Updated: 2024/04/27 18:05:09 by pgonzal2         ###   ########.fr       */
+/*   Updated: 2024/04/30 19:28:10 by pgonzal2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,21 @@
 
 int	main(int argc, char **argv)
 {
+	t_map	map;
+	
 	if (argc != 2)
 		ft_error();
-	ft_read_map(argv[1]);
+	ft_read_map(&map, argv[1]);
 	return (0);
+}
+
+void	ft_init_struct(t_map *map)
+{
+	map->h = 0;
+	map->p_x = -1;
+	map->p_y = -1;
+	map->p = 0;
+	map->e = 0;
 }
 
 
