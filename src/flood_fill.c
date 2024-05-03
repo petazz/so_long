@@ -6,7 +6,7 @@
 /*   By: pgonzal2 <pgonzal2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:21:58 by pgonzal2          #+#    #+#             */
-/*   Updated: 2024/04/30 19:36:20 by pgonzal2         ###   ########.fr       */
+/*   Updated: 2024/05/02 13:19:26 by pgonzal2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,12 @@ void	ft_save_player(t_map *map)
 		i++;
 	}
 	if (map->p != 1 || map->e != 1 || map->c == 0)
-		ft_free_map(map);
-	print_config(map, 1);
-	ft_memcpy(map->copy_grid, map->grid, (map->h * map->w));
+		ft_free_map(map, map->grid);
+	///
+	i = -1;
+	
+	while (++i < map->h)
+		map->copy_grid[i] =  ft_strdup(map->grid[i]);
 	ft_flood_fill(map, map->p_x, map->p_y);
 }
 
@@ -65,6 +68,30 @@ void	ft_flood_fill(t_map *map, int x, int y)
 	ft_flood_fill(map, x+1, y);
 	ft_flood_fill(map, x, y-1);
 	ft_flood_fill(map, x, y+1);
+}
+
+void	ft_check_collectibles(t_map *map)
+{
+	int	i;
+	int	j;
+	
+	i = 0;
+	while(i < map->h)
+	{
+		j = 0;
+		while(map->copy_grid[i][j] != '\0')
+		{
+			if (map->copy_grid[i][j] == 'C')
+			{
+				ft_free_map(map, map->copy_grid);
+				ft_free_map(map, map->grid);
+				printf("map no valid");
+				exit(1);
+			}
+			j++;		
+		}
+		i++;
+	}
 }
 
 int	ft_valid(t_map *map, int i, int j)

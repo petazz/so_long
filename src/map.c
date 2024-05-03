@@ -6,7 +6,7 @@
 /*   By: pgonzal2 <pgonzal2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:38:59 by pgonzal2          #+#    #+#             */
-/*   Updated: 2024/04/30 19:28:47 by pgonzal2         ###   ########.fr       */
+/*   Updated: 2024/05/02 13:19:39 by pgonzal2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,21 @@ void	ft_error(void)
 	exit(EXIT_FAILURE);
 }
 
-void	ft_free_map(t_map *map)
+void	ft_free_map(t_map *map, char **matrix)
 {
 	int	t;
 
 	t = 0;
-	while (t < 5)
+	if ( !matrix || !*matrix)
+		return ;
+	while (t < map->h)
 	{
-		free(map->grid[t]);
+		printf("grid: %p\n", matrix[t]);
+		free(matrix[t]);
 		t++;
 	}
-	free(map->grid);
+	free(matrix);
+	map->copy_grid = NULL;
 	printf("Error fre\n");
 }
 
@@ -82,18 +86,18 @@ void	ft_check_map(t_map *map)
 	while(i < map->w)
 	{
 		if(map->grid[0][i] != '1')
-			ft_free_map(map);
+			ft_free_map(map, map->grid);
 		if(map->grid[map->h-1][i] != '1')
-			ft_free_map(map);
+			ft_free_map(map, map->grid);
 		i++;
 	}
 	i = 1;
 	while(i < map->h)
 	{
 		if(map->grid[i][0] != '1')
-			ft_free_map(map);
+			ft_free_map(map, map->grid);
 		if(map->grid[i][map->w-1] != '1')
-			ft_free_map(map);
+			ft_free_map(map, map->grid);
 		i++;
 	}
 }
@@ -124,4 +128,6 @@ void	ft_read_map(t_map *map, char *name_map)
 	close(fd);
 	ft_check_map(map);
 	ft_save_player(map);
+	ft_check_collectibles(map);
+	print_config(map, 1);
 }

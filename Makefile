@@ -6,9 +6,13 @@
 #    By: pgonzal2 <pgonzal2@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/26 16:40:41 by pgonzal2          #+#    #+#              #
-#    Updated: 2024/04/28 20:08:17 by pgonzal2         ###   ########.fr        #
+#    Updated: 2024/05/03 12:55:20 by pgonzal2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+INCS = -IMLX42/include
+LIBDIR = -LMLX42 -L/Users/pgonzal2/.brew/Cellar/glfw/3.4/lib
+LIB = -lmlx42 -ldl -lglfw
 
 LIBFT_DIR         = libft/
 LIBFT             = libft.a
@@ -37,7 +41,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ_SRC)
 	@$(MAKE) -s all bonus printf gnl -C $(LIBFT_DIR)
-	$(CC) $(OBJ_SRC) $(MLX_FLAGS) -L$(LIBFT_DIR) -lft -o $@
+	$(CC) $(OBJ_SRC) ${INCS} ${LIBDIR} ${LIB} $(MLX_FLAGS) -L$(LIBFT_DIR) -lft -o $@
 	@$(MAKE) -C $(MLX42_DIR)
 
 clean:
