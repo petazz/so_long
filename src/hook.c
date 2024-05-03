@@ -10,7 +10,7 @@ void ft_hook(void* param)
 
 	data = (t_data*)param;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(data->mlx);
+		data->img_pc->instances[0].enabled = 0
 	if (mlx_is_key_down(data->mlx, MLX_KEY_UP))
 		data->img_pc->instances[0].y -= 5;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
