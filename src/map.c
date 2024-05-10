@@ -6,34 +6,26 @@
 /*   By: pgonzal2 <pgonzal2@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 11:38:59 by pgonzal2          #+#    #+#             */
-/*   Updated: 2024/05/02 13:19:39 by pgonzal2         ###   ########.fr       */
+/*   Updated: 2024/05/10 18:46:49 by pgonzal2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	ft_error(void)
-{
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
-}
 
 void	ft_free_map(t_map *map, char **matrix)
 {
 	int	t;
 
 	t = 0;
-	if ( !matrix || !*matrix)
+	if (!matrix || !*matrix)
 		return ;
 	while (t < map->h)
 	{
-		printf("grid: %p\n", matrix[t]);
 		free(matrix[t]);
 		t++;
 	}
 	free(matrix);
 	map->copy_grid = NULL;
-	printf("Error fre\n");
 }
 
 int	ft_strlen_sl(char *str)
@@ -41,9 +33,9 @@ int	ft_strlen_sl(char *str)
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
-		if(str[i] == '\n')
+		if (str[i] == '\n')
 		{
 			str[i] = '\0';
 			i = i - 1;
@@ -64,10 +56,10 @@ void	ft_measure_map(char *name_map, t_map *map)
 	if (fd == -1)
 		ft_error();
 	temp = get_next_line(fd);
-	if(!temp)
+	if (!temp)
 		ft_error();
 	map->w = ft_strlen_sl(temp);
-	while(temp)
+	while (temp)
 	{
 		map->h++;
 		aux = ft_strlen_sl(temp);
@@ -78,26 +70,27 @@ void	ft_measure_map(char *name_map, t_map *map)
 	}
 	close(fd);
 }
+
 void	ft_check_map(t_map *map)
 {
 	int	i;
 
 	i = 0;
-	while(i < map->w)
+	while (i < map->w)
 	{
-		if(map->grid[0][i] != '1')
-			ft_free_map(map, map->grid);
-		if(map->grid[map->h-1][i] != '1')
-			ft_free_map(map, map->grid);
+		if (map->grid[0][i] != '1')
+			ft_error();
+		if (map->grid[map->h - 1][i] != '1')
+			ft_error();
 		i++;
 	}
 	i = 1;
-	while(i < map->h)
+	while (i < map->h)
 	{
-		if(map->grid[i][0] != '1')
-			ft_free_map(map, map->grid);
-		if(map->grid[i][map->w-1] != '1')
-			ft_free_map(map, map->grid);
+		if (map->grid[i][0] != '1')
+			ft_error();
+		if (map->grid[i][map->w - 1] != '1')
+			ft_error();
 		i++;
 	}
 }
@@ -120,7 +113,7 @@ void	ft_read_map(t_map *map, char *name_map)
 		ft_error();
 	line = get_next_line(fd);
 	i = 0;
-	while(line)
+	while (line)
 	{
 		map->grid[i++] = line;
 		line = get_next_line(fd);
@@ -129,5 +122,4 @@ void	ft_read_map(t_map *map, char *name_map)
 	ft_check_map(map);
 	ft_save_player(map);
 	ft_check_collectibles(map);
-	print_config(map, 1);
 }
